@@ -6,7 +6,7 @@ import HeroImage from './elements/HeroImage'
 import SearchBar from './elements/SearchBar'
 import Grid from './elements/Grid'
 import MovieThumb from './elements/MovieThumb'
-import LoadMoreBtn from './elements/Spinner'
+import LoadMoreBtn from './elements/LoadMoreBtn'
 import Spinner from './elements/Spinner'
 
 import {useHomeFetch} from './hooks/useHomeFetch'
@@ -15,22 +15,39 @@ import noImage from './images/no_image.jpg';
 
 const Home = () => {
 
-    const [{state, loading, error}, fetchMovies] = useHomeFetch();
+    const [
+        {
+          state: { movies, currentPage, totalPages, heroImage },
+          loading,
+          error,
+        },
+        fetchMovies,
+      ] = useHomeFetch();
+
     const [searchTerm, setSearchTerm] = useState('');
-    console.table(state.heroImage)
+
+    const loadMoreMovies = () => {
+        const isCurrentPage = currentPage ? currentPage + 1 : 1
+        const searchEndpoint = `${API_URL}search/movie?api_key=${API_KEY}&query=${searchTerm}&page=${currentPage + 1}`
+        const popularEndPoint = `${API_URL}movie/popular?api_key=${API_KEY}&page=${currentPage + 1}`
+
+        const endpoint = searchTerm ? searchEndpoint : popularEndPoint
+        
+        fetchMovies(endpoint)
+    }
 
     if (error) return <div>Something went wrong</div>
-    if (!state.movies[0]) return <Spinner/>
+    if (!movies[0]) return <Spinner/>
     return(
         <>
             <HeroImage
-                image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.heroImage.backdrop_path}`}
-                title={state.heroImage.original_title}
-                text={state.heroImage.overview}
+                image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${heroImage.backdrop_path}`}
+                title={heroImage.original_title}
+                text={heroImage.overview}
             />
             <SearchBar></SearchBar>
             <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
-                {state.movies.map(movie => (
+                {movies.map(movie => (
                     <MovieThumb
                         key={movie.id}
                         clickable
@@ -41,8 +58,8 @@ const Home = () => {
                 ))
                 }
             </Grid>
-            <Spinner></Spinner>
-            <LoadMoreBtn></LoadMoreBtn>
+            {loading && <Spinner/>}
+            <LoadMoreBtn text="Load More" callback={loadMoreMovies}/>
         </>
         )
 }
