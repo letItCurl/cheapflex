@@ -1,6 +1,7 @@
 import React from 'react'
 import NoImage from '../images/no_image.jpg'
 import { IMAGE_BASE_URL ,POSTER_SIZE} from '../../config'
+import PropTypes from 'prop-types'
 
 import MovieThumb from './MovieThumb'
 
@@ -26,12 +27,17 @@ const MovieInfo = ({movie}) => (
                         </div>
                         <div className="director">
                             <h3>DIRECTOR{movie.directors.length > 1 ? 'S' : ''}</h3>
-                            {movie.directors.map(el => ( <p key={el.credits_id}>{el.name}</p> ))}
+                            {movie.directors.map(el => (<p key={el.credit_id}>{el.name}</p> ))}
                         </div>
                     </div>
                 </div>
             </div>
         </StyledMovieInfo>
     )
+
+MovieInfo.propTypes = {
+    movie: PropTypes.object,
+    director: PropTypes.array
+}
 
 export default MovieInfo
