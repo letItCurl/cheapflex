@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 
 import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from '../config'
 
@@ -11,9 +11,12 @@ import Spinner from './elements/Spinner'
 
 import {useHomeFetch} from './hooks/useHomeFetch'
 
+import noImage from './images/no_image.jpg';
+
 const Home = () => {
 
     const [{state, loading, error}, fetchMovies] = useHomeFetch();
+    const [searchTerm, setSearchTerm] = useState('');
     console.table(state.heroImage)
 
     if (error) return <div>Something went wrong</div>
@@ -26,8 +29,18 @@ const Home = () => {
                 text={state.heroImage.overview}
             />
             <SearchBar></SearchBar>
-            <Grid></Grid>
-            <MovieThumb></MovieThumb>
+            <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
+                {state.movies.map(movie => (
+                    <MovieThumb
+                        key={movie.id}
+                        clickable
+                        image={movie.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}` : noImage}
+                        movieId={movie.id}
+                        movieName={movie.original_title}
+                    />
+                ))
+                }
+            </Grid>
             <Spinner></Spinner>
             <LoadMoreBtn></LoadMoreBtn>
         </>
