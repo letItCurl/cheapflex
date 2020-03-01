@@ -4,6 +4,7 @@ import {Link} from '@reach/router'
 
 import RMDBLogo from '../images/reactMovie_logo.png'
 import TMDBLogo from '../images/tmdb_logo.svg'
+import Rodeo from '../images/Rodeooocircle.png'
 //or
 // import {StyledHeader,...,...} from '../styles/StyledHeader'
 
@@ -34,8 +35,8 @@ const StyledRMDBLogo = styled.img`
     }
 `
 const StyledTMDBLogo = styled.img`
-    width: 122px;
-    margin-top: 25px;
+    width: 110px;
+    margin-top: -10px;
     float: right;
     @media screen and (max-width: 500px) {
         display: inline-block;
@@ -49,7 +50,9 @@ const Header = () => (
             <Link to="/">
                 <StyledRMDBLogo src={RMDBLogo} alt="rmdb-logo"/>
             </Link>
-            <StyledTMDBLogo src={TMDBLogo} alt="tmdb-logo"/>
+            <a href="https://www.linkedin.com/in/roland-lopez-developer/">
+                <StyledTMDBLogo src={Rodeo} alt="tmdb-logo"/>
+            </a>
         </div>
     </StyledHeader>
 )
