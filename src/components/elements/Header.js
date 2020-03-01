@@ -41,7 +41,7 @@ const StyledTMDBLogo = styled.img`
     @media screen and (max-width: 500px) {
         display: inline-block;
         width: 80px;
-        margin-top: 0px;
+        margin-top: -12px;
     }
 `
 const Header = () => (
