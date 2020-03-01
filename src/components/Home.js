@@ -27,7 +27,6 @@ const Home = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const loadMoreMovies = () => {
-        const isCurrentPage = currentPage ? currentPage + 1 : 1
         const searchEndpoint = `${API_URL}search/movie?api_key=${API_KEY}&query=${searchTerm}&page=${currentPage + 1}`
         const popularEndPoint = `${API_URL}movie/popular?api_key=${API_KEY}&page=${currentPage + 1}`
 
@@ -59,7 +58,10 @@ const Home = () => {
                 }
             </Grid>
             {loading && <Spinner/>}
-            <LoadMoreBtn text="Load More" callback={loadMoreMovies}/>
+            {currentPage < totalPages && !loading && (
+                <LoadMoreBtn text="Load More" callback={loadMoreMovies}/>
+            )}
+            
         </>
         )
 }
