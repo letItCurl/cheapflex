@@ -33,8 +33,19 @@ export const useMovieFetch = movieId => {
     }, [movieId])
 
     useEffect(() => {
-        fetchData();
-    }, [fetchData])
+        if(localStorage[movieId]){
+            console.log("Reading localstorage (concerns single movie)")
+            setState(JSON.parse(localStorage[movieId]))
+            setLoading(false)
+        }else{
+            console.log("Reading API (concerns single movie)")
+            fetchData();
+        }
+    }, [fetchData, movieId])
+
+    useEffect(() => {
+        localStorage.setItem(movieId, JSON.stringify(state))
+    }, [movieId, state])
 
     return [state, loading, error];
 }
