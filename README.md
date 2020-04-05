@@ -1,12 +1,10 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## This app is like NETFLIX, but it's free !
+## React app that fetch the movie DB !
 
-On the other hand, you can't read videos (yhea that's very sad)
+you can see it here:
+https://cheapflex.netlify.com
 
-So let me introduce you: THE CHEAPFLEX APP !
+enjoy !
 
-It just give you info on your favorite movie !
 
-Cheers to that ;)
 
