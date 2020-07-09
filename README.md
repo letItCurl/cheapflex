@@ -1,8 +1,6 @@
 # React app that fetch the movie DB ! [![](https://img.shields.io/badge/autor-letItCurl-red.svg)](https://www.linkedin.com/in/roland-lopez-developer/?locale=en_US)
 > https://cheapflex.netlify.com ⚡️
 
-***enjoy !***
-
 # About me
 
 <table style="border: none;">
